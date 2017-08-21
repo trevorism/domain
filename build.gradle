@@ -1,0 +1,30 @@
+apply plugin: 'groovy'
+apply plugin: 'jacoco'
+
+repositories {
+	mavenCentral()
+	flatDir {
+		dirs ('C:\\dev\\http-utils\\build\\libs', 'C:\\dev\\datastore-client\\build\\libs')
+	}
+}
+
+dependencies {
+	compile ':datastore-client:1.0.0'
+	compile ':http-utils:1.0.0'
+	compile 'org.apache.httpcomponents:httpclient:4.5.3'
+	compile 'com.google.code.gson:gson:2.8.1'
+    compile 'org.codehaus.groovy:groovy-all:2.4.12'
+	testCompile 'junit:junit:4.12'
+}
+
+sourceSets {
+    scripts{
+        groovy{
+            compileClasspath += configurations.compile
+            compileClasspath += main.output
+            runtimeClasspath += main.output
+        }
+    }
+}
+
+check.dependsOn "jacocoTestReport"

@@ -7,5 +7,5 @@ class Subscriber {
     String name
     String topic
     String url
-    String ackDeadlineSeconds = "10"
+    String ackdeadlineseconds = "10"
 }

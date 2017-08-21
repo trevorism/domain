@@ -6,22 +6,10 @@ package com.trevorism.domain
 class Service {
     long id
     String name
-    String gitUrl
+    String giturl
     String host
 
     String url
     String dns
 
-
-    @Override
-    public String toString() {
-        return "Service{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", gitUrl='" + gitUrl + '\'' +
-                ", host='" + host + '\'' +
-                ", url='" + url + '\'' +
-                ", dns='" + dns + '\'' +
-                '}';
-    }
 }

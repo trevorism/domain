@@ -1,6 +1,6 @@
 package com.trevorism.registry
 
-import com.trevorism.data.DatastoreRepository
+import com.trevorism.data.FastDatastoreRepository
 import com.trevorism.data.Repository
 import com.trevorism.domain.Service
 
@@ -15,7 +15,8 @@ class ServiceRegistryData {
     }
 
     static void createServiceRegistry() {
-        Repository<Service> repository = new DatastoreRepository<>(Service.class)
+        Repository<Service> repository = new FastDatastoreRepository<>(Service.class)
+        repository.ping()
         def allServices = [
                 datastoreService(),
                 eventhubService(),
@@ -27,7 +28,14 @@ class ServiceRegistryData {
                 gradleAcceptancePluginService(),
                 gradleGaeDeployPluginService(),
                 httpUtilsService(),
-                googleApps()
+                googleApps(),
+                registryService(),
+                kanbanBoard(),
+                secureUtilsService(),
+                listenService(),
+                jenkinsService(),
+                nexusService()
+
         ]
 
         for(int i = 0; i < allServices.size(); i++){
@@ -43,9 +51,20 @@ class ServiceRegistryData {
         new Service(name: "googleApps", host: "google", url: "https://admin.google.com")
     }
 
+    private static Service kanbanBoard() {
+        new Service(name: "kanbanBoard", host: "kanbanflow", url: "`+-  Q-+*+" +
+                "")
+    }
+
     private static Service httpUtilsService() {
         new Service(name: "http-utils",
                 giturl: "https://github.com/trevorism/http-utils.git",
+                host: "internal")
+    }
+
+    private static Service secureUtilsService() {
+        new Service(name: "secure-utils",
+                giturl: "https://github.com/trevorism/secure-utils.git",
                 host: "internal")
     }
 
@@ -93,6 +112,13 @@ class ServiceRegistryData {
                 dns: "http://event.trevorism.com")
     }
 
+    private static Service listenService() {
+        new Service(name: "listen",
+                giturl: "https://github.com/trevorism/listen.git",
+                host: "https://console.cloud.google.com/appengine/versions?project=trevorism-eventhub&serviceId=listen",
+                url: "https://listen-dot-trevorism-eventhub.appspot.com")
+    }
+
     private static Service datastoreService() {
         new Service(name: "datastore",
                 giturl: "https://github.com/trevorism/datastore.git",
@@ -106,6 +132,30 @@ class ServiceRegistryData {
                 name: "email",
                 giturl: "https://github.com/trevorism/email.git",
                 host: "https://console.cloud.google.com/appengine/versions?project=trevorism-gcloud&serviceId=email",
-                url: "https://email-dot-trevorism-gcloud.appspot.com")
+                url: "https://email-dot-trevorism-gcloud.appspot.com",
+                dns: "http://email.datastore.trevorism.com")
+    }
+
+    private static Service registryService() {
+        new Service(
+                name: "registry",
+                giturl: "https://github.com/trevorism/registry.git",
+                host: "https://console.cloud.google.com/appengine/versions?project=trevorism-gcloud&serviceId=registry",
+                url: "https://registry-dot-trevorism-gcloud.appspot.com",
+                dns: "http://registry.datastore.trevorism.com")
+    }
+
+    private static Service jenkinsService() {
+        new Service(
+                name: "jenkins",
+                host: "http://trevor.eastus.cloudapp.azure.com/jenkins",
+                url: "http://trevor.eastus.cloudapp.azure.com/jenkins")
+    }
+
+    private static Service nexusService() {
+        new Service(
+                name: "nexus",
+                host: "http://trevor.eastus.cloudapp.azure.com/nexus",
+                url: "http://trevor.eastus.cloudapp.azure.com/nexus")
     }
 }

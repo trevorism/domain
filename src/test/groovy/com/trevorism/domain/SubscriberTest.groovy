@@ -1,5 +1,6 @@
 package com.trevorism.domain
 
+import com.trevorism.domain.model.Subscriber
 import org.junit.Test
 
 /**

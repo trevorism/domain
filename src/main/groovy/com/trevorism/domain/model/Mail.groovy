@@ -1,4 +1,4 @@
-package com.trevorism.domain
+package com.trevorism.domain.model
 
 /**
  * @author tbrooks

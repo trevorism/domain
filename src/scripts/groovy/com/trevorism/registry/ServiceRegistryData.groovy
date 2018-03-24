@@ -2,7 +2,7 @@ package com.trevorism.registry
 
 import com.trevorism.data.FastDatastoreRepository
 import com.trevorism.data.Repository
-import com.trevorism.domain.Service
+import com.trevorism.domain.model.Service
 
 /**
  * @author tbrooks
@@ -34,7 +34,10 @@ class ServiceRegistryData {
                 secureUtilsService(),
                 listenService(),
                 jenkinsService(),
-                nexusService()
+                nexusService(),
+                scheduleService(),
+                pushButtonService(),
+                azureVmService()
 
         ]
 
@@ -45,6 +48,13 @@ class ServiceRegistryData {
         }
 
 
+    }
+
+    private static Service scheduleService() {
+        new Service(
+                name: "schedule",
+                host: "https://portal.azure.com/#resource/subscriptions/906b0f79-78ec-487e-8403-0b066dbb28f3/resourceGroups/trevor-eastus2-local-rg/providers/Microsoft.Web/sites/trevorism-scheduler/appServices",
+                url: "http://trevorism-scheduler.azurewebsites.net")
     }
 
     private static Service googleApps() {
@@ -109,7 +119,7 @@ class ServiceRegistryData {
                 giturl: "https://github.com/trevorism/eventhub.git",
                 host: "https://console.cloud.google.com/appengine/versions?project=trevorism-eventhub&serviceId=default",
                 url: "https://trevorism-eventhub.appspot.com",
-                dns: "http://event.trevorism.com")
+                dns: "https://event.trevorism.com")
     }
 
     private static Service listenService() {
@@ -124,7 +134,7 @@ class ServiceRegistryData {
                 giturl: "https://github.com/trevorism/datastore.git",
                 host: "https://console.cloud.google.com/appengine/versions?project=trevorism-gcloud&serviceId=default",
                 url: "https://trevorism-gcloud.appspot.com",
-                dns: "http://datastore.trevorism.com")
+                dns: "https://datastore.trevorism.com")
     }
 
     private static Service emailService() {
@@ -158,4 +168,22 @@ class ServiceRegistryData {
                 host: "http://trevor.eastus.cloudapp.azure.com/nexus",
                 url: "http://trevor.eastus.cloudapp.azure.com/nexus")
     }
+
+    private static Service pushButtonService() {
+        new Service(name: "push-button",
+                giturl: "https://github.com/trevorism/push-button.git",
+                host: "https://console.cloud.google.com/appengine/versions?serviceId=default&project=trevorism-pushbutton",
+                url: "https://trevorism-pushbutton.appspot.com",
+                dns: "https://click.trevorism.com")
+    }
+
+    private static Service azureVmService() {
+        new Service(
+                name: "azure-vm",
+                giturl: "https://github.com/trevorism/azure-vm.git",
+                host: "https://console.cloud.google.com/appengine/versions?project=trevorism-gcloud&serviceId=azure-vm",
+                url: "https://azure-vm-dot-trevorism-gcloud.appspot.com/",
+                dns: "http://azure-vm.datastore.trevorism.com")
+    }
+
 }
